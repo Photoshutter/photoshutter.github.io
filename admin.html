@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHOTOSHUTTER | Owner Admin</title>
+<style>
+:root{color-scheme:dark;--bg:#10100f;--panel:#1b1a17;--gold:#c9a96b;--text:#f4f0e8;--muted:#aaa39a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif;padding:24px}
+main{max-width:900px;margin:auto}.brand{letter-spacing:.2em;color:var(--gold);font-size:12px}h1{font:clamp(30px,5vw,44px) Georgia,serif;margin:8px 0 4px}
+.panel{background:var(--panel);border:1px solid #39342b;border-radius:14px;padding:22px;margin:18px 0}
+label{display:block;color:var(--muted);font-size:13px;margin:13px 0 6px}
+input,select,textarea,button{font:inherit;width:100%;padding:12px;border:1px solid #514737;border-radius:8px;background:#12110f;color:var(--text)}
+textarea{min-height:95px;resize:vertical}button{background:var(--gold);color:#17130d;font-weight:700;cursor:pointer;margin-top:14px;border:0}
+button.secondary{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+button.danger{background:#5c2925;color:white}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.note{color:var(--muted);font-size:13px}.status{margin-top:12px;white-space:pre-wrap;color:var(--gold)}
+#app{display:none}.item{border-top:1px solid #39342b;padding:12px 0;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.item small{display:block;color:var(--muted)}.item button{width:auto;margin:0;padding:8px 12px}
+@media(max-width:600px){body{padding:14px}.row{grid-template-columns:1fr}.panel{padding:16px}}
+</style></head><body><main>
+<div class="brand">PHOTOSHUTTER · OWNER ACCESS</div><h1>Gallery Management</h1>
+<p class="note">Private owner workspace. Sign in with the authorized PHOTOSHUTTER owner account.</p>
+<section class="panel" id="loginPanel"><h2>Owner sign in</h2>
+<label>Email</label><input id="email" type="email" autocomplete="username" value="shubhajithari24@gmail.com">
+<label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Your Supabase password">
+<button id="login">Sign in securely</button><div class="status" id="loginStatus"></div>
+<p class="note">Only the owner email configured in the database security policies is allowed. This page does not create accounts or change your password.</p></section>
+<section id="app">
+<div class="panel"><div class="row"><div><h2>Publish to website gallery</h2></div><div><button class="secondary" id="logout">Sign out</button></div></div>
+<label>Gallery category</label><select id="category"><option value="weddings">Wedding</option><option value="corporate">Corporate</option><option value="commercial">Commercial</option></select>
+<label>Album / Project name</label><input id="album" maxlength="160" placeholder="e.g. Riya & Arjun Wedding">
+<label>Description</label><textarea id="description" maxlength="1200" placeholder="Write a short project description..."></textarea>
+<label>Choose photos and videos</label><input id="files" type="file" accept="image/*,video/*" multiple>
+<p class="note">Images and videos are uploaded to Supabase Cloud. Large videos may take longer; stay on this page until upload completes.</p>
+<button id="upload">Upload and publish to gallery</button><div class="status" id="uploadStatus"></div>
+</div>
+<div class="panel"><h2>Published media</h2><p class="note">Delete removes the item from the public gallery and cloud storage.</p><div id="items"></div><div class="status" id="listStatus"></div></div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(()=>{
+const SUPABASE_URL='https://osxdvwpvcndmzjemgzpm.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_xyO_kIBk-0JwCZ5ixgC98w_gdrtjzcW';
+const BUCKET='photoshutter-gallery',OWNER='shubhajithari24@gmail.com';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const $=id=>document.getElementById(id),say=(id,msg)=>$(id).textContent=msg;
+function show(session){const ok=!!session&&session.user.email?.toLowerCase()===OWNER; $('loginPanel').style.display=ok?'none':'block';$('app').style.display=ok?'block':'none';if(session&&!ok){db.auth.signOut();say('loginStatus','This account is not authorized as the PHOTOSHUTTER owner.');}if(ok)loadItems();}
+db.auth.getSession().then(({data})=>show(data.session));
+db.auth.onAuthStateChange((_event,session)=>show(session));
+$('login').onclick=async()=>{say('loginStatus','Signing in…');const {data,error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){say('loginStatus',error.message);return;}if(data.user.email.toLowerCase()!==OWNER){await db.auth.signOut();say('loginStatus','This email is not authorized.');}};
+$('logout').onclick=()=>db.auth.signOut();
+$('upload').onclick=async()=>{
+ const files=[...$('files').files];if(!files.length){say('uploadStatus','Please choose at least one photo or video.');return;}
+ const user=(await db.auth.getUser()).data.user;if(!user||user.email.toLowerCase()!==OWNER){say('uploadStatus','Owner authentication required.');return;}
+ const btn=$('upload');btn.disabled=true;let count=0;
+ for(const file of files){
+  if(file.size>1024*1024*500){say('uploadStatus',file.name+' is larger than 500 MB. Skipped.');continue;}
+  const clean=file.name.normalize('NFKD').replace(/[^\\w.-]+/g,'-');
+  const path=$('category').value+'/'+Date.now()+'-'+crypto.randomUUID()+'-'+clean;
+  say('uploadStatus','Uploading '+(count+1)+' of '+files.length+': '+file.name);
+  const {error:upErr}=await db.storage.from(BUCKET).upload(path,file,{contentType:file.type||'application/octet-stream',upsert:false});
+  if(upErr){say('uploadStatus','Upload failed: '+upErr.message+'\\nCompleted '+count+' of '+files.length+'.');btn.disabled=false;return;}
+  const {data:{publicUrl}}=db.storage.from(BUCKET).getPublicUrl(path);
+  const {error:dbErr}=await db.from('photoshutter_gallery').insert({category:$('category').value,album:$('album').value.trim()||null,description:$('description').value.trim()||null,file_name:file.name,storage_path:path,public_url:publicUrl,mime_type:file.type||null,size_bytes:file.size});
+  if(dbErr){await db.storage.from(BUCKET).remove([path]);say('uploadStatus','Gallery record failed: '+dbErr.message);btn.disabled=false;return;}
+  count++;
+ }
+ say('uploadStatus','Published '+count+' of '+files.length+' file(s). Refresh the public website to see them.');
+ $('files').value='';btn.disabled=false;loadItems();
+};
+async function loadItems(){
+ say('listStatus','Loading…');const {data,error}=await db.from('photoshutter_gallery').select('*').order('created_at',{ascending:false});
+ if(error){say('listStatus',error.message);return;}
+ $('items').replaceChildren();
+ (data||[]).forEach(item=>{
+  const row=document.createElement('div');row.className='item';const info=document.createElement('div');
+  info.textContent=(item.album||item.file_name)+' · '+item.category;
+  const small=document.createElement('small');small.textContent=item.description||item.file_name;info.append(small);
+  const del=document.createElement('button');del.className='danger';del.textContent='Delete';
+  del.onclick=async()=>{if(!confirm('Delete '+item.file_name+'?'))return;del.disabled=true;
+   const {error:rmErr}=await db.storage.from(BUCKET).remove([item.storage_path]);
+   if(rmErr){say('listStatus',rmErr.message);del.disabled=false;return;}
+   const {error:rowErr}=await db.from('photoshutter_gallery').delete().eq('id',item.id);
+   if(rowErr){say('listStatus',rowErr.message);del.disabled=false;return;}loadItems();
+  };row.append(info,del);$('items').append(row);
+ });
+ say('listStatus',(data||[]).length+' item(s) published.');
+}
+})();
+</script></body></html>

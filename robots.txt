@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://photoshutter.github.io/sitemap.xml
