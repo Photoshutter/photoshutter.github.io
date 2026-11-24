@@ -709,6 +709,7 @@ menu.addEventListener('click',()=>{const opened=nav.classList.toggle('open');men
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
 
 const folderModal=document.getElementById('folder-modal'),
+      gallery=document.getElementById('modal-gallery'),
       folderTitle=document.getElementById('folder-title'),
       folderSubtitle=document.getElementById('folder-subtitle'),
       folderTabs=document.querySelectorAll('.folder-tab'),
