@@ -68,6 +68,9 @@
 .folder-card:hover{border-color:var(--gold);transform:translateY(-4px)}
 .folder-cover{position:absolute;inset:0;z-index:0}
 .folder-cover img{transition:transform .8s cubic-bezier(.2,.7,.2,1);filter:brightness(.78)}
+.folder-cover .corporate-cover-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#111;filter:brightness(.72);pointer-events:none}
+.folder-cover-empty .corporate-cover-video:not([src]){display:none}
+.folder-card:hover .folder-cover .corporate-cover-video{transform:scale(1.025);filter:brightness(.82)}
 .folder-card:hover .folder-cover img{transform:scale(1.05);filter:brightness(.88)}
 .folder-card:after{content:'';position:absolute;inset:25% 0 0;background:linear-gradient(transparent,rgba(10,9,8,.92));z-index:1;pointer-events:none}
 .folder-badge{position:absolute;top:20px;left:20px;z-index:2;background:rgba(17,16,15,.82);border:1px solid rgba(201,169,107,.55);color:var(--gold);padding:7px 13px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;backdrop-filter:blur(6px)}
@@ -116,7 +119,7 @@
 .plans-tier-pills{display:flex;gap:8px;flex-wrap:wrap}
 .plans-tier-pills span{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#d6ccb8;border:1px solid var(--line);padding:6px 11px;background:rgba(255,255,255,.02)}
 
-.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.tile{position:relative;overflow:hidden;background:#282521;cursor:pointer}.tile img{transition:transform .7s cubic-bezier(.2,.7,.2,1)}.tile:hover img{transform:scale(1.035)}.tile:after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.68));pointer-events:none}.tile .tile-label{position:absolute;z-index:1;bottom:20px;left:22px;right:16px}.tile-label small{display:block;color:#dfc68f;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px}.tile-label span{font:26px var(--serif)}.wedding-a{grid-column:span 7;height:520px}.wedding-b{grid-column:span 5;height:520px}.wedding-c{grid-column:span 4;height:440px}.wedding-d{grid-column:span 4;height:440px}.wedding-e{grid-column:span 4;height:440px}.about{background:#e9e2d6;color:#171511}.about .eyebrow{color:#9b7841}.about .section-intro{color:#696258}.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.member{border-top:1px solid rgba(20,15,10,.25);padding-top:16px}.member .portrait{height:420px;overflow:hidden;background:#d1c9bd}.member img{filter:saturate(.86);transition:.5s}.member:hover img{transform:scale(1.025)}.member h3{font:28px var(--serif);margin:20px 0 7px}.member p{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#82776b;margin:0}.member .contact{display:inline-block;font-size:11px;margin-top:14px;color:#6f5733;border-bottom:1px solid #b7a17b;padding-bottom:4px}.pricing{background:#171614}.packages{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.package{border:1px solid var(--line);padding:38px 34px;display:flex;flex-direction:column;min-height:480px;background:rgba(255,255,255,.01)}.package.featured{border-color:var(--gold);background:rgba(201,169,107,.07)}.package-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}.package .tag{color:var(--gold);font-size:10px;letter-spacing:.22em;text-transform:uppercase}.package .price{font:34px var(--serif);color:var(--gold);letter-spacing:-.02em}.package h3{font:34px var(--serif);margin:14px 0 10px}.package .desc{color:var(--muted);font-size:13px;line-height:1.75;margin:0 0 18px}.package .inc-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:6px;padding-top:16px;border-top:1px solid var(--line)}.package ul{padding:0;list-style:none;margin:14px 0 20px;color:#ddd5c9;font-size:12.5px;line-height:1.95}.package li{margin-bottom:6px;padding-left:18px;position:relative}.package li:before{content:'—';color:var(--gold);position:absolute;left:0}.package li strong{color:var(--paper);font-weight:600}.package .why-box{font-size:11.5px;line-height:1.65;color:#d6ccb8;background:rgba(201,169,107,.09);border-left:2px solid var(--gold);padding:10px 14px;margin:0 0 16px}.package .addon{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:auto 0 22px;padding-top:12px;border-top:1px dashed rgba(201,169,107,.3)}.package .btn{align-self:flex-start}.note{font-size:11px;color:#8d867c;margin-top:26px;letter-spacing:.04em}.contact-section{background:#d9cdb9;color:#181510;padding:100px 0}.contact-section .eyebrow{color:#8e6a32}.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}.contact-grid h2{font-size:clamp(45px,6vw,82px);margin:15px 0}.contact-grid p{color:#6b6257;max-width:470px;line-height:1.8;font-size:13px}.contact-detail{border-top:1px solid rgba(20,15,10,.22);padding:18px 0}.contact-detail span{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#8e6a32;margin-bottom:8px}.contact-detail strong{font:22px var(--serif);font-weight:400;display:block;word-break:break-word}.contact-detail a:hover{color:#8e6a32}.btn.outline-dark{border-color:#181510;color:#181510}.btn.outline-dark:hover{background:#181510;border-color:#181510;color:var(--paper)}.footer{padding:28px 5%;display:flex;justify-content:space-between;gap:20px;color:#8e887e;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer .gold{color:var(--gold)}.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:30;align-items:center;justify-content:center;padding:5%}.lightbox.show{display:flex}.lightbox img{width:auto;height:auto;max-width:90vw;max-height:88vh;object-fit:contain}.lightbox button{position:absolute;top:25px;right:30px;border:0;background:none;color:white;font-size:35px;cursor:pointer}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.tile{position:relative;overflow:hidden;background:#282521;cursor:pointer}.tile img{transition:transform .7s cubic-bezier(.2,.7,.2,1)}.tile:hover img{transform:scale(1.035)}.tile:after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.68));pointer-events:none}.tile .tile-label{position:absolute;z-index:1;bottom:20px;left:22px;right:16px}.tile-label small{display:block;color:#dfc68f;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px}.tile-label span{font:26px var(--serif)}.wedding-a{grid-column:span 7;height:520px}.wedding-b{grid-column:span 5;height:520px}.wedding-c{grid-column:span 4;height:440px}.wedding-d{grid-column:span 4;height:440px}.wedding-e{grid-column:span 4;height:440px}.about{background:#e9e2d6;color:#171511}.about .eyebrow{color:#9b7841}.about .section-intro{color:#696258}.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.member{border-top:1px solid rgba(20,15,10,.25);padding-top:16px}.member .portrait{height:420px;overflow:hidden;background:#d1c9bd}.member img{filter:saturate(.86);transition:.5s}.member:hover img{transform:scale(1.025)}.member h3{font:28px var(--serif);margin:20px 0 7px}.member p{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#82776b;margin:0}.member .contact{display:inline-block;font-size:11px;margin-top:14px;color:#6f5733;border-bottom:1px solid #b7a17b;padding-bottom:4px}.pricing{background:#171614}.packages{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.package{border:1px solid var(--line);padding:38px 34px;display:flex;flex-direction:column;min-height:480px;background:rgba(255,255,255,.01)}.package.featured{border-color:var(--gold);background:rgba(201,169,107,.07)}.package-top{display:flex;justify-content:flex-start;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}.package .tag{color:var(--gold);font-size:10px;letter-spacing:.22em;text-transform:uppercase}.package h3{font:34px var(--serif);margin:10px 0 8px}.package-price-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 18px;padding:12px 0 14px;border-top:1px solid rgba(201,169,107,.24);border-bottom:1px solid rgba(201,169,107,.24)}.package .package-price-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}.package .price{font:clamp(27px,3vw,34px) var(--serif);color:var(--gold);letter-spacing:-.02em;white-space:nowrap}.package .desc{color:var(--muted);font-size:13px;line-height:1.75;margin:0 0 18px}.package .inc-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:6px;padding-top:16px;border-top:1px solid var(--line)}.package ul{padding:0;list-style:none;margin:14px 0 20px;color:#ddd5c9;font-size:12.5px;line-height:1.95}.package li{margin-bottom:6px;padding-left:18px;position:relative}.package li:before{content:'—';color:var(--gold);position:absolute;left:0}.package li strong{color:var(--paper);font-weight:600}.package .why-box{font-size:11.5px;line-height:1.65;color:#d6ccb8;background:rgba(201,169,107,.09);border-left:2px solid var(--gold);padding:10px 14px;margin:0 0 16px}.package .addon{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:auto 0 22px;padding-top:12px;border-top:1px dashed rgba(201,169,107,.3)}.package .btn{align-self:flex-start}.note{font-size:11px;color:#8d867c;margin-top:26px;letter-spacing:.04em}.contact-section{background:#d9cdb9;color:#181510;padding:100px 0}.contact-section .eyebrow{color:#8e6a32}.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}.contact-grid h2{font-size:clamp(45px,6vw,82px);margin:15px 0}.contact-grid p{color:#6b6257;max-width:470px;line-height:1.8;font-size:13px}.contact-detail{border-top:1px solid rgba(20,15,10,.22);padding:18px 0}.contact-detail span{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#8e6a32;margin-bottom:8px}.contact-detail strong{font:22px var(--serif);font-weight:400;display:block;word-break:break-word}.contact-detail a:hover{color:#8e6a32}.btn.outline-dark{border-color:#181510;color:#181510}.btn.outline-dark:hover{background:#181510;border-color:#181510;color:var(--paper)}.footer{padding:28px 5%;display:flex;justify-content:space-between;gap:20px;color:#8e887e;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer .gold{color:var(--gold)}.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:30;align-items:center;justify-content:center;padding:5%}.lightbox.show{display:flex}.lightbox img{width:auto;height:auto;max-width:90vw;max-height:88vh;object-fit:contain}.lightbox button{position:absolute;top:25px;right:30px;border:0;background:none;color:white;font-size:35px;cursor:pointer}
 @media(max-width:900px){.folder-grid{grid-template-columns:1fr}.folder-card{height:420px}.packages{grid-template-columns:1fr}.package{min-height:0}.beyond-card{grid-template-columns:1fr;padding:44px 32px;gap:32px}.beyond-card:before{left:32px}.beyond-body{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.plans-gateway{padding:38px 30px}.plans-Direct-cta{align-items:flex-start}}
 @media(max-width:760px){.topbar{padding:18px 5%}.nav{display:none;position:absolute;top:70px;right:5%;background:#171614;border:1px solid var(--line);padding:20px;flex-direction:column;gap:18px}.nav.open{display:flex}.menu{display:block}.hero{min-height:78vh}.hero-content{padding:135px 0 70px}.hero-note{display:none}.section{padding:75px 0}.section-head{display:block;margin-bottom:30px}.section-intro{margin-top:20px}.gallery{gap:9px}.wedding-a,.wedding-b{grid-column:span 6;height:330px}.wedding-c,.wedding-d,.wedding-e{grid-column:span 4;height:250px}.tile-label{left:12px!important;bottom:13px!important}.tile-label span{font-size:19px}.tile-label small{font-size:8px}.team{grid-template-columns:1fr;gap:32px}.member .portrait{height:480px}.contact-grid{grid-template-columns:1fr;gap:25px}.footer{flex-direction:column}.folder-modal{padding:20px 4% 60px}.folder-modal-title h3{font-size:26px}}
 @media(max-width:430px){.wedding-a,.wedding-b{grid-column:span 12;height:300px}.wedding-c,.wedding-d,.wedding-e{grid-column:span 12;height:280px}.brand{font-size:13px}.hero h1{font-size:44px}.package{padding:26px 22px}.package .price,.package h3{font-size:28px}.folder-card{height:380px;padding:20px}.beyond-card{padding:34px 22px}}
@@ -435,7 +438,9 @@ header{position:sticky!important;top:0!important;z-index:60!important}
 </div>
 </article>
 <article class="folder-card" data-open-folder="corporate">
-<div aria-label="Corporate photography cover image reserved for future portfolio work" class="folder-cover folder-cover-empty"></div>
+<div aria-label="Corporate photography video cover" class="folder-cover folder-cover-empty">
+<video class="corporate-cover-video" muted autoplay loop playsinline preload="metadata" aria-hidden="true"></video>
+</div>
 <span class="folder-badge">📁 Collection 02 · Corporate</span>
 <div class="folder-info">
 <small>Corporate Events · Business Stories</small>
@@ -574,8 +579,9 @@ header{position:sticky!important;top:0!important;z-index:60!important}
 </div>
 <div class="packages">
 <article class="package">
-<div class="package-top"><span class="tag">Essential</span><span class="price">₹35,000</span></div>
+<div class="package-top"><span class="tag">Essential</span></div>
 <h3>Essential Package</h3>
+<div class="package-price-row"><span class="package-price-label">Package Price</span><span class="price">₹35,000</span></div>
 <p class="desc">Thoughtfully designed to beautifully preserve the most cherished moments of your wedding journey across key celebrations.</p>
 <div class="inc-title">What’s Included</div>
 <ul>
@@ -590,8 +596,9 @@ header{position:sticky!important;top:0!important;z-index:60!important}
 <a class="btn plan-book-link" href="#contact">Book Essential ↗</a>
 </article>
 <article class="package">
-<div class="package-top"><span class="tag">Essential · Dual Family</span><span class="price">₹53,499</span></div>
+<div class="package-top"><span class="tag">Essential · Dual Family</span></div>
 <h3>Both Side Package</h3>
+<div class="package-price-row"><span class="package-price-label">Package Price</span><span class="price">₹53,499</span></div>
 <p class="desc">Synchronized, dual-family coverage capturing every ritual and heartfelt smile from both Bride and Groom sides.</p>
 <div class="inc-title">What’s Included</div>
 <ul>
@@ -606,8 +613,9 @@ header{position:sticky!important;top:0!important;z-index:60!important}
 <a class="btn plan-book-link" href="#contact">Book Both Side ↗</a>
 </article>
 <article class="package featured">
-<div class="package-top"><span class="tag">Premium · Most Loved</span><span class="price">₹84,499</span></div>
+<div class="package-top"><span class="tag">Premium · Most Loved</span></div>
 <h3>Premium Package</h3>
+<div class="package-price-row"><span class="package-price-label">Package Price</span><span class="price">₹84,499</span></div>
 <p class="desc">Crafted for couples who want a complete, cinematic, and beautifully preserved wedding experience with premium photography and films.</p>
 <div class="inc-title">What’s Included</div>
 <ul>
@@ -623,8 +631,9 @@ header{position:sticky!important;top:0!important;z-index:60!important}
 <a class="btn primary plan-book-link" href="#contact">Book Premium ↗</a>
 </article>
 <article class="package featured">
-<div class="package-top"><span class="tag">Premium · Grand Dual Family</span><span class="price">₹1,37,999</span></div>
+<div class="package-top"><span class="tag">Premium · Grand Dual Family</span></div>
 <h3>Premium Both Side</h3>
+<div class="package-price-row"><span class="package-price-label">Package Price</span><span class="price">₹1,37,999</span></div>
 <p class="desc">Designed for couples who want complete, cinematic coverage of their wedding celebrations from both families with a dedicated pre-wedding shoot.</p>
 <div class="inc-title">What’s Included</div>
 <ul>
@@ -709,10 +718,10 @@ menu.addEventListener('click',()=>{const opened=nav.classList.toggle('open');men
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
 
 const folderModal=document.getElementById('folder-modal'),
-      gallery=document.getElementById('modal-gallery'),
       folderTitle=document.getElementById('folder-title'),
       folderSubtitle=document.getElementById('folder-subtitle'),
       folderTabs=document.querySelectorAll('.folder-tab'),
+      gallery=document.getElementById('modal-gallery'),
       galleryTiles=document.querySelectorAll('#modal-gallery .tile');
 
 const folderMeta={
@@ -750,6 +759,7 @@ document.querySelectorAll('[data-open-folder]').forEach(el=>{
     folderModal.classList.add('open');
     document.body.style.overflow='hidden';
     folderModal.scrollTop=0;
+    psPushView('gallery',{category:cat});
   });
 });
 
@@ -758,8 +768,9 @@ folderTabs.forEach(tab=>{
 });
 
 function closeFolderModal(){
-  folderModal.classList.remove('open');
-  document.body.style.overflow='';
+  if(psClosingFromPopstate){psCloseGalleryUI();return;}
+  if(psHasView('gallery')) history.back();
+  else psCloseGalleryUI();
 }
 
 document.getElementById('close-folder').addEventListener('click',closeFolderModal);
@@ -771,10 +782,19 @@ function openPlansModal(){
   plansModal.classList.add('open');
   document.body.style.overflow='hidden';
   plansModal.scrollTop=0;
+  psPushView('plans');
 }
 function closePlansModal(){
-  plansModal.classList.remove('open');
-  document.body.style.overflow='';
+  if(psClosingFromPopstate){
+    plansModal.classList.remove('open');
+    document.body.style.overflow='';
+    return;
+  }
+  if(psHasView('plans')) history.back();
+  else{
+    plansModal.classList.remove('open');
+    document.body.style.overflow='';
+  }
 }
 document.querySelectorAll('[data-open-plans]').forEach(el=>{
   el.addEventListener('click',e=>{
@@ -789,17 +809,43 @@ document.querySelectorAll('.plan-book-link').forEach(link=>{
 });
 
 const lb=document.getElementById('lightbox'),lbimg=document.getElementById('lightbox-img');
+// A small same-URL history buffer keeps Back gestures inside PHOTOSHUTTER first.
+// Opening the gallery/lightbox adds its own history entry; Back closes that view.
+const PS_HISTORY_MARK='__photoshutterInternalView';
+let psClosingFromPopstate=false;
+function psPushView(view,extra={}){
+  try{history.pushState({...(history.state||{}),[PS_HISTORY_MARK]:view,...extra},'',location.href);}catch(e){}
+}
+function psHasView(view){return !!(history.state&&history.state[PS_HISTORY_MARK]===view);}
+function psCloseGalleryUI(){
+  folderModal.classList.remove('open');
+  document.body.style.overflow='';
+}
+function psCloseLightboxUI(){
+  lb.classList.remove('show');
+  lbimg.removeAttribute('src');
+  document.body.style.overflow=folderModal.classList.contains('open')?'hidden':'';
+}
+try{
+  if(!history.state||history.state.__photoshutterBackBuffer!==2){
+    history.replaceState({...history.state,__photoshutterBackBuffer:0},'',location.href);
+    history.pushState({__photoshutterBackBuffer:1},'',location.href);
+    history.pushState({__photoshutterBackBuffer:2},'',location.href);
+  }
+}catch(e){}
+
 function openGalleryLightbox(img){
   if(!img||!img.src)return;
   lbimg.src=img.currentSrc||img.src;
   lbimg.alt=img.alt||'PHOTOSHUTTER portfolio photograph';
   lb.classList.add('show');
   document.body.style.overflow='hidden';
+  psPushView('lightbox');
 }
 function closeGalleryLightbox(){
-  lb.classList.remove('show');
-  lbimg.removeAttribute('src');
-  document.body.style.overflow='';
+  if(psClosingFromPopstate){psCloseLightboxUI();return;}
+  if(psHasView('lightbox')) history.back();
+  else psCloseLightboxUI();
 }
 document.querySelectorAll('[data-full]').forEach(img=>img.addEventListener('click',e=>{
   e.stopPropagation();
@@ -817,6 +863,17 @@ document.getElementById('modal-gallery').addEventListener('click',e=>{
 });
 document.getElementById('close').addEventListener('click',closeGalleryLightbox);
 lb.addEventListener('click',e=>{if(e.target===lb)closeGalleryLightbox()});
+window.addEventListener('popstate',()=>{
+  psClosingFromPopstate=true;
+  try{
+    if(lb.classList.contains('show')) psCloseLightboxUI();
+    else if(folderModal.classList.contains('open')) psCloseGalleryUI();
+    else if(plansModal.classList.contains('open')){
+      plansModal.classList.remove('open');
+      document.body.style.overflow='';
+    }
+  }finally{psClosingFromPopstate=false;}
+});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     if(lb.classList.contains('show'))closeGalleryLightbox();
@@ -970,6 +1027,26 @@ document.addEventListener('keydown',e=>{
       if(error) throw error;
       gallery.querySelectorAll('[data-cloud-upload="true"]').forEach(n=>n.remove());
       const counts={weddings:0,corporate:0,commercial:0};
+      // Pick the newest already-uploaded Corporate video; do not hard-code a file URL.
+      const corporateVideo=(data||[]).find(item=>item.category==='corporate' &&
+        typeof item.mime_type==='string' && item.mime_type.toLowerCase().startsWith('video/') &&
+        typeof item.public_url==='string' && item.public_url);
+      const coverVideo=document.querySelector('.corporate-cover-video');
+      if(coverVideo){
+        if(corporateVideo){
+          const nextUrl=corporateVideo.public_url;
+          if(coverVideo.getAttribute('src')!==nextUrl){
+            coverVideo.muted=true;coverVideo.defaultMuted=true;coverVideo.autoplay=true;
+            coverVideo.loop=true;coverVideo.playsInline=true;
+            coverVideo.setAttribute('muted','');coverVideo.setAttribute('autoplay','');
+            coverVideo.setAttribute('loop','');coverVideo.setAttribute('playsinline','');
+            coverVideo.src=nextUrl;coverVideo.load();
+            const startCoverVideo=()=>coverVideo.play().catch(()=>{});
+            coverVideo.addEventListener('loadeddata',startCoverVideo,{once:true});
+            startCoverVideo();
+          }
+        }else{coverVideo.removeAttribute('src');coverVideo.load();}
+      }
       (data||[]).forEach(item=>{
         if(counts[item.category]!==undefined) counts[item.category]++;
         const tile=document.createElement('div');
