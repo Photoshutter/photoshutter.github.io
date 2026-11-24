@@ -32,6 +32,7 @@ button.danger{background:#5c2925;color:white}.row{display:grid;grid-template-col
 <p class="note">Images and videos are uploaded to Supabase Cloud. Large videos may take longer; stay on this page until upload completes.</p>
 <button id="upload">Upload and publish to gallery</button><div class="status" id="uploadStatus"></div>
 </div>
+<div class="panel"><h2>Client reviews · Approval queue</h2><p class="note">New client reviews stay private until you approve them. Approved reviews appear on the public website. Rejected reviews remain hidden.</p><div id="reviewItems"></div><div class="status" id="reviewStatus"></div></div>
 <div class="panel"><h2>Published media</h2><p class="note">Delete removes the item from the public gallery and cloud storage.</p><div id="items"></div><div class="status" id="listStatus"></div></div>
 </section>
 </main>
@@ -43,7 +44,7 @@ const SUPABASE_PUBLISHABLE_KEY='sb_publishable_xyO_kIBk-0JwCZ5ixgC98w_gdrtjzcW';
 const BUCKET='photoshutter-gallery',OWNER='shubhajithari24@gmail.com';
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 const $=id=>document.getElementById(id),say=(id,msg)=>$(id).textContent=msg;
-function show(session){const ok=!!session&&session.user.email?.toLowerCase()===OWNER; $('loginPanel').style.display=ok?'none':'block';$('app').style.display=ok?'block':'none';if(session&&!ok){db.auth.signOut();say('loginStatus','This account is not authorized as the PHOTOSHUTTER owner.');}if(ok)loadItems();}
+function show(session){const ok=!!session&&session.user.email?.toLowerCase()===OWNER; $('loginPanel').style.display=ok?'none':'block';$('app').style.display=ok?'block':'none';if(session&&!ok){db.auth.signOut();say('loginStatus','This account is not authorized as the PHOTOSHUTTER owner.');}if(ok){loadItems();loadReviews();}}
 db.auth.getSession().then(({data})=>show(data.session));
 db.auth.onAuthStateChange((_event,session)=>show(session));
 $('login').onclick=async()=>{say('loginStatus','Signing in…');const {data,error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){say('loginStatus',error.message);return;}if(data.user.email.toLowerCase()!==OWNER){await db.auth.signOut();say('loginStatus','This email is not authorized.');}};
@@ -67,6 +68,38 @@ $('upload').onclick=async()=>{
  say('uploadStatus','Published '+count+' of '+files.length+' file(s). Refresh the public website to see them.');
  $('files').value='';btn.disabled=false;loadItems();
 };
+async function loadReviews(){
+ say('reviewStatus','Loading client reviews…');
+ const {data,error}=await db.from('photoshutter_reviews').select('*').order('created_at',{ascending:false});
+ if(error){say('reviewStatus','Could not load reviews: '+error.message+'\nIf this is the first setup, run SUPABASE_REVIEWS_SETUP.sql in Supabase SQL Editor.');return;}
+ const root=$('reviewItems');root.replaceChildren();
+ if(!(data||[]).length){say('reviewStatus','No client reviews submitted yet.');return;}
+ (data||[]).forEach(review=>{
+  const row=document.createElement('div');row.className='item';row.style.gridTemplateColumns='1fr';
+  const info=document.createElement('div');
+  const heading=document.createElement('strong');heading.textContent=review.name+' · '+'★'.repeat(review.rating)+'☆'.repeat(5-review.rating)+' · '+review.status.toUpperCase();
+  const message=document.createElement('p');message.textContent=review.message;message.style.margin='8px 0';
+  const small=document.createElement('small');small.textContent=(review.project||'Client review')+' · '+new Date(review.created_at).toLocaleString();
+  info.append(heading,message,small);row.append(info);
+  if(review.status!=='approved'){
+   const approve=document.createElement('button');approve.textContent='Approve and publish';approve.onclick=()=>moderateReview(review.id,'approved',approve);
+   row.append(approve);
+  }
+  if(review.status!=='rejected'){
+   const reject=document.createElement('button');reject.className='danger';reject.textContent='Reject';reject.onclick=()=>moderateReview(review.id,'rejected',reject);
+   row.append(reject);
+  }
+  root.append(row);
+ });
+ say('reviewStatus',(data||[]).filter(r=>r.status==='pending').length+' pending · '+(data||[]).filter(r=>r.status==='approved').length+' approved · '+(data||[]).filter(r=>r.status==='rejected').length+' rejected');
+}
+async function moderateReview(id,status,button){
+ button.disabled=true;
+ const {error}=await db.from('photoshutter_reviews').update({status}).eq('id',id);
+ if(error){say('reviewStatus','Could not update review: '+error.message);button.disabled=false;return;}
+ loadReviews();
+}
+
 async function loadItems(){
  say('listStatus','Loading…');const {data,error}=await db.from('photoshutter_gallery').select('*').order('created_at',{ascending:false});
  if(error){say('listStatus',error.message);return;}
